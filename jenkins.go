@@ -226,6 +226,11 @@ func (jenkins *Jenkins) GetBuild(job Job, number int) (build Build, err error) {
 	return
 }
 
+// Stop the number-th build of specified job.
+func (jenkins *Jenkins) StopBuild(job Job, number int) error {
+	return jenkins.post(fmt.Sprintf("/job/%s/%d/stop", job.Name, number), nil, nil)
+}
+
 // GetLastBuild returns the last build of specified job.
 func (jenkins *Jenkins) GetLastBuild(job Job) (build Build, err error) {
 	err = jenkins.get(fmt.Sprintf("/job/%s/lastBuild", job.Name), nil, &build)
